@@ -11,12 +11,11 @@ const pudding = {
 }
 
 beforeEach(function() {
-    items.push(pudding);
+    items.push({...pudding});
 })
 
 afterEach(function() {
     items.length = 0;
-    // console.log(items)
 });
 
 describe("GET /items", function() {
@@ -116,13 +115,12 @@ describe("PATCH /items/:name", function () {
             name: "chocolate pudding",
             price: 7.77 }})
     });
-    //test for item not found
 });
 
 describe("DELETE /items/:name", function () {
     test("deletes a specific item from the shopping list", async function() {
         const resp = await request(app).delete('/items/pudding');
-        expect(resp.statusCode).toBe(404);
+        expect(resp.statusCode).toBe(200);
         expect(resp.body).toEqual({ message: 'Deleted'})
     })
 })
